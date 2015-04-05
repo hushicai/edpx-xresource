@@ -1,0 +1,19 @@
+{
+  "name": "edpx-xresource",
+  "version": "1.0.0",
+  "description": "edp webserver resource help tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hushicai/edpx-xresource.git"
+  },
+  "author": "hushicai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hushicai/edpx-xresource/issues"
+  },
+  "homepage": "https://github.com/hushicai/edpx-xresource"
+}
