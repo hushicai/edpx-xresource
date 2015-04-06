@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/hushicai/edpx-xresource/issues"
   },
-  "homepage": "https://github.com/hushicai/edpx-xresource"
+  "homepage": "https://github.com/hushicai/edpx-xresource",
+  "dependencies": {
+    "edp-webserver": "^1.1.0"
+  }
 }
