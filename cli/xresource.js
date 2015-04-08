@@ -80,7 +80,7 @@ function doTest(name) {
         if (typeof testHandler === 'function') {
             testHandler = [testHandler];
         }
-        // promise chain
+        // promise waterfall
         testHandler.reduce(function (soFar, h) {
             return soFar.then(h).then(success, fail);
         }, Q(true)).then(complete, complete);
