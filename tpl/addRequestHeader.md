@@ -1,7 +1,5 @@
 ## 用法
 
-在`edp-webserver-config.js`配置文件中，添加一个location。
-
 ```javascript
 {
     // 定义url匹配

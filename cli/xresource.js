@@ -13,7 +13,7 @@ var cli = {};
 cli.description = 'edp webserver getLocations 帮助工具';
 
 cli.options = [
-    't'
+    'test'
 ];
 
 cli.main = function (args, opts) {

@@ -16,8 +16,6 @@ __Note: 安装过程中，请选择`other-cgi`模式。__
 
 ## 用法
  
-在`edp-webserver-config.js`配置文件中，添加一个location。
-
 ### 使用内置php
 
 ```javascript
