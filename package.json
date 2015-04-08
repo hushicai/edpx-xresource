@@ -19,7 +19,6 @@
   "dependencies": {
     "edp-webserver": "^1.1.0",
     "request": "^2.55.0",
-    "should": "^5.2.0",
     "q": "^1.2.0",
     "chalk": "^1.0.0"
   }
