@@ -1,3 +1,10 @@
+/**
+ * @file cli
+ * @author hushicai(bluthcy@gmail.com)
+ */
+
+/* eslint-env node  */
+
 var fs = require('fs');
 var path = require('path');
 
@@ -6,7 +13,7 @@ var cli = {};
 cli.description = 'edp webserver getLocations 帮助工具';
 
 cli.options = [
-    "t"
+    't'
 ];
 
 cli.main = function (args, opts) {
@@ -14,32 +21,30 @@ cli.main = function (args, opts) {
 
     if (!name) {
         return require('../lib/util').listAllResources();
-    };
+    }
 
     var tpl = path.resolve(__dirname, '../tpl/' + name + '.md');
 
     if (!fs.existsSync(tpl)) {
         return console.log('no help info found for %s.', name);
     }
-        
-    // testing
+
     if (opts.t) {
         doTest(name);
     }
     else {
         doHelp(tpl);
     }
-}
+};
 
 function doHelp(tpl) {
     var content = fs.readFileSync(tpl, {encoding: 'utf8'});
     require('../lib/util').output(content);
 }
 
+var chalk = require('chalk');
 
 function doTest(name) {
-    console.log('running test....');
-
     var dir = path.resolve(__dirname, '..', 'example');
 
     if (!fs.existsSync(dir)) {
@@ -58,9 +63,29 @@ function doTest(name) {
     };
     console.log('edp webserver locations: ');
     var c = fs.readFileSync(loc + '.js', {encoding: 'utf8'});
-    c = c.replace(/module\.exports\s*=\s*/, '').replace(/^(\]);$/m, '$1');
+    c = c
+        .replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:\/\/(?:.*)$)/g, '')
+        .replace(/module\.exports\s*=\s*/, '')
+        .replace(/^(\]);$/m, '$1')
+        .trim();
     console.log(c);
-    ws.start(config);
+    var server = ws.start(config);
+
+    var testHandler = require('../lib/test')[name];
+
+    if (testHandler) {
+        console.log(chalk.white('running test....'));
+        testHandler().then(testDone, testFail);
+    }
+
+    function testDone() {
+        console.log(chalk.green('test success!'));
+        server.close();
+    }
+    function testFail() {
+        console.log(chalk.red('test fail!'));
+        server.close();
+    }
 }
 
 exports.cli = cli;
