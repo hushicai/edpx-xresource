@@ -61,20 +61,20 @@ function doTest(name) {
     config.getLocations = function () {
         return require(loc);
     };
-    console.log('edp webserver locations: ');
+    console.log(chalk.bold('edp webserver locations: '));
     var c = fs.readFileSync(loc + '.js', {encoding: 'utf8'});
     c = c
         .replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:\/\/(?:.*)$)/g, '')
         .replace(/module\.exports\s*=\s*/, '')
         .replace(/^(\]);$/m, '$1')
         .trim();
-    console.log(c);
+    console.log(chalk.italic(c));
     var server = ws.start(config);
 
     var testHandler = require('../lib/test')[name];
 
     if (testHandler) {
-        console.log(chalk.white('running test....'));
+        console.log(chalk.cyan('running test....'));
         testHandler().then(testDone, testFail);
     }
 
