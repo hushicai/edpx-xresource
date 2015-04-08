@@ -1,17 +1,15 @@
 /**
- * @file listDirectory
+ * @file file
  * @author hushicai(bluthcy@gmail.com)
  */
 
-/* eslint-env node */
-
-/* global listDirectory */
+/* global file  */
 
 module.exports = [
     {
         location: /^.*$/,
         handler: [
-            listDirectory()
+            file()
         ]
     }
 ];

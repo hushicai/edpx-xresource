@@ -8,6 +8,8 @@
 var fs = require('fs');
 var path = require('path');
 
+var Q = require('q');
+
 var cli = {};
 
 cli.description = 'edp webserver getLocations 帮助工具';
@@ -75,15 +77,24 @@ function doTest(name) {
 
     if (testHandler) {
         console.log(chalk.cyan('running test....'));
-        testHandler().then(testDone, testFail);
+        if (typeof testHandler === 'function') {
+            testHandler = [testHandler];
+        }
+        // promise chain
+        testHandler.reduce(function (soFar, h) {
+            return soFar.then(h).then(success, fail);
+        }, Q(true)).then(complete, complete);
     }
 
-    function testDone() {
+    function success() {
         console.log(chalk.green('test success!'));
-        server.close();
     }
-    function testFail() {
+
+    function fail() {
         console.log(chalk.red('test fail!'));
+    }
+
+    function complete() {
         server.close();
     }
 }
